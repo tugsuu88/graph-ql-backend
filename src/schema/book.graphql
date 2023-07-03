@@ -1,0 +1,15 @@
+type Book {
+  _id: ID
+  name: String!
+  descr: String!
+}
+
+type GetBooksResult {
+  books: [Book!]
+  totalPages: Int!
+  totalItems: Int!
+}
+
+type Query {
+  getBooks(page: Int!, limit: Int!): GetBooksResult!
+}

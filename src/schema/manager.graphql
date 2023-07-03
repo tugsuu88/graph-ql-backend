@@ -1,0 +1,79 @@
+"""
+-- =============================== TYPES =============================== --
+-- ===================================================================== --
+"""
+type ManagerAuth {
+  token: String!
+  manager: Manager!
+}
+
+type Manager {
+  manager_id: String!
+  manager_name: String
+  manager_phone: String
+  manager_type: String!
+  pass_enc: String
+  use_yn: String
+  del_yn: String
+}
+
+type SearchManagerPageResult {
+  listManager: [Manager!]
+  totalPages: Int!
+  totalItems: Int!
+}
+
+"""
+-- =============================== INPUTS =============================== --
+-- ====================================================================== --
+"""
+input SearchManagerCondition {
+  cpny_id: String
+  manager_name: String
+  manager_phone: String
+  manager_type: String
+  use_yn: String
+}
+
+input ManagerInput {
+  manager_id: String
+  manager_name: String
+  manager_phone: String
+  manager_pass: String
+  manager_type: String!
+  pass_enc: String
+  use_yn: String
+  del_yn: String
+}
+
+"""
+-- =============================== Mutation =============================== --
+-- ======================================================================== --
+"""
+type Mutation {
+  ManagerLogin(phone: String!, password: String!): ManagerAuth!
+  SaveManager(manager: ManagerInput): Manager
+  DeleteManager(manager_id: String!): Boolean!
+}
+
+"""
+-- =============================== Query =============================== --
+-- ===================================================================== --
+"""
+type Query {
+  """
+  manager-iin medeelel awah
+  """
+  GetManager(
+    """
+    manager-iin id
+    """
+    manager_id: String!
+  ): Manager
+  ListManagerPage(
+    page: Int!
+    limit: Int!
+    advanced: SearchManagerCondition!
+  ): SearchManagerPageResult!
+  ListManager(condition: SearchManagerCondition!): [Manager]
+}

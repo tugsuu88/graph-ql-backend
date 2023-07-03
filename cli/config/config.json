@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": "tergel_dev202@",
+    "database": "tergel-db",
+    "host": "194.233.65.229",
+    "port": "3307",
+    "dialect": "mariadb"
+  },
+  "test": {
+    "username": "root",
+    "password": "tergel_dev202@",
+    "database": "tergel-db",
+    "host": "194.233.65.229",
+    "port": "3307",
+    "dialect": "mariadb"
+  },
+  "production": {
+    "username": "root",
+    "password": "tergel_dev202@",
+    "database": "tergel-db",
+    "host": "194.233.65.229",
+    "port": "3307",
+    "dialect": "mariadb"
+  }
+}

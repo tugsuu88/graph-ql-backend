@@ -1,0 +1,22 @@
+"""
+-- =============================== TYPES =============================== --
+-- ===================================================================== --
+"""
+type UserMaterialDetail {
+  user_material_detail_id: String
+  user_material_id: String
+  material_id: String
+  material_detail_id: String
+  source_type: String
+  source_id: String
+  user_id: String
+}
+
+"""
+-- =============================== INPUTS =============================== --
+-- ====================================================================== --
+"""
+input UserMaterialDetailDenyInput {
+  user_material_detail_id: String
+  deny_descr: String
+}

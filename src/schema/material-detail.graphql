@@ -1,0 +1,74 @@
+"""
+-- =============================== TYPES =============================== --
+-- ===================================================================== --
+"""
+type MaterialDetail {
+  material_detail_id: String!
+  material_id: String
+  material_name: String
+  material_descr: String
+  material_type: String
+  material_source_id: String
+  cond_yn: String
+  cond_descr: String
+  allow_file_ext: String
+  use_yn: String
+  del_yn: String
+}
+
+type MaterialDetailPageResult {
+  listMaterialDetail: [MaterialDetail]
+  totalPages: Int!
+  totalItems: Int!
+}
+"""
+-- =============================== INPUTS =============================== --
+-- ====================================================================== --
+"""
+input MaterialDetailInput {
+  material_detail_id: String
+  material_id: String
+  material_name: String
+  material_descr: String
+  material_type: String
+  material_source_id: String
+  cond_yn: String
+  cond_descr: String
+  allow_file_ext: String
+  use_yn: String
+  del_yn: String
+}
+
+input SearchMaterialDetailCondition {
+  material_id: String
+  material_name: String
+  material_descr: String
+  material_type: String
+}
+
+"""
+-- =============================== Mutation =============================== --
+-- ======================================================================== --
+"""
+type Mutation {
+  SaveMaterialDetail(material_detail: MaterialDetailInput!): MaterialDetail!
+  DeleteMaterialDetail(material_detail_id: String): Boolean!
+}
+
+"""
+-- =============================== Query =============================== --
+-- ===================================================================== --
+"""
+type Query {
+  GetMaterialDetail(material_detail_id: String!): MaterialDetail
+
+  ListMaterialDetailPage(
+    page: Int!
+    limit: Int!
+    advanced: SearchMaterialDetailCondition!
+  ): MaterialDetailPageResult!
+
+  ListMaterialDetails(
+    advanced: SearchMaterialDetailCondition!
+  ): [MaterialDetail]
+}

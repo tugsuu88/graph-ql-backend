@@ -1,0 +1,83 @@
+"""
+-- =============================== TYPES =============================== --
+-- ===================================================================== --
+"""
+type Code {
+  code_id: String!
+  parent_yn: String!
+  code_type: String!
+  code: String!
+  code_name: String!
+  descr: String!
+  order: Int!
+  use_yn: String!
+  del_yn: String!
+  reserved1: String
+  reserved2: String
+}
+
+type CodePageResult {
+  codes: [Code!]
+  totalPages: Int!
+  totalItems: Int!
+}
+"""
+-- =============================== INPUTS =============================== --
+-- ====================================================================== --
+"""
+input SearchCodeCondition {
+  parent_yn: String
+  code_type: String
+  code: String
+  code_name: String
+}
+
+input CodeInput {
+  code_id: String
+  code_type: String!
+  code: String!
+  code_name: String!
+  descr: String!
+  order: Int!
+  use_yn: String!
+  del_yn: String!
+  reserved1: String
+  reserved2: String
+}
+
+input CodeDetailInput {
+  code_id: String!
+  code_type: String!
+  code: String!
+  code_name: String!
+  descr: String!
+  order: Int!
+  use_yn: String!
+  del_yn: String!
+  reserved1: String
+  reserved2: String
+  rowStatus: String!
+}
+
+"""
+-- =============================== Mutation =============================== --
+-- ======================================================================== --
+"""
+type Mutation {
+  SaveParentCode(code: CodeInput): Code!
+  DeleteParentCode(code_id: String!): Boolean!
+  SaveDetailCodes(listCode: [CodeDetailInput]): Boolean!
+}
+
+"""
+-- =============================== Query =============================== --
+-- ===================================================================== --
+"""
+type Query {
+  ListParentCode(
+    page: Int!
+    limit: Int!
+    searchCondition: SearchCodeCondition!
+  ): CodePageResult!
+  ListDetailCode(code_type: String!): [Code!]
+}

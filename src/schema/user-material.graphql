@@ -1,0 +1,93 @@
+"""
+-- =============================== TYPES =============================== --
+-- ===================================================================== --
+"""
+type UserMaterial {
+  user_material_id: String
+  user_id: String
+  material_id: String
+  payment_yn: String
+  payment_id: String
+  payment_date: String
+  status: String
+  last_comment_id: String
+  use_yn: String
+  use_date: String
+  del_yn: String
+}
+
+type UserMaterialPageResult {
+  listUserMaterial: [UserMaterial]
+  totalPages: Int!
+  totalItems: Int!
+}
+
+type AdvancedUserMaterialResult {
+  userMaterial: UserMaterial
+  listUserMaterialDetail: [UserMaterialDetail]
+}
+"""
+-- =============================== INPUTS =============================== --
+-- ====================================================================== --
+"""
+input UserMaterialInput {
+  user_material_id: String
+  user_id: String
+  material_id: String
+  payment_yn: String
+  payment_id: String
+  payment_date: String
+  status: String
+  last_comment_id: String
+  use_yn: String
+  del_yn: String
+}
+
+input UserMaterialDenyInput {
+  user_material_id: String
+  deny_descr: String
+}
+
+input SearchUserMaterialCondition {
+  user_id: String
+  material_id: String
+  payment_yn: String
+  status: String
+}
+"""
+-- =============================== Mutation =============================== --
+-- ======================================================================== --
+"""
+type Mutation {
+  CreateUserMaterial(user_material: UserMaterialInput!): UserMaterial!
+  SetMaterialId(user_material_id: String, material_id: String!): UserMaterial!
+
+  ChangeCreateToCheck(user_material_id: String): UserMaterial!
+  CancelUserMaterial(user_material_id: String): UserMaterial!
+  ChangeCheckToApprove(
+    user_material_id: String
+    manager_descr: String
+  ): UserMaterial!
+  ChangeCheckToDeny(
+    paramUserMaterial: UserMaterialDenyInput
+    paramUserMaterialDetail: [UserMaterialDetailDenyInput]
+  ): UserMaterial!
+  ChangeDenyToCheck(user_material_id: String): UserMaterial!
+  ChangeApproveToDone(user_material_id: String): UserMaterial!
+
+  UpdateUserMaterial(user_material: UserMaterialInput): UserMaterial!
+}
+
+"""
+-- =============================== Query =============================== --
+-- ===================================================================== --
+"""
+type Query {
+  GetUserMaterial(user_material_id: String!): AdvancedUserMaterialResult
+  ListUserMaterialsPage(
+    page: Int!
+    limit: Int!
+    advanced: SearchUserMaterialCondition
+  ): [UserMaterialPageResult]
+  ListUserMaterials(advanced: SearchUserMaterialCondition): [UserMaterial]
+}

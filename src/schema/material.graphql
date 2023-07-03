@@ -1,0 +1,67 @@
+"""
+-- =============================== TYPES =============================== --
+-- ===================================================================== --
+"""
+type Material {
+  material_id: String!
+  material_name: String
+  descr: String
+  parent_material_id: String
+  material_code: String
+  use_yn: String
+  del_yn: String
+  isParent: String
+}
+
+type MaterialPageResult {
+  listMaterial: [Material]
+  totalPages: Int!
+  totalItems: Int!
+}
+
+"""
+-- =============================== INPUTS =============================== --
+-- ====================================================================== --
+"""
+input MaterialInput {
+  material_id: String
+  material_name: String
+  descr: String
+  parent_material_id: String
+  material_code: String
+  use_yn: String
+  del_yn: String
+}
+
+input SearchMaterialCondition {
+  material_name: String
+  descr: String
+  material_code: String
+  status: String
+}
+
+"""
+-- =============================== Mutation =============================== --
+-- ======================================================================== --
+"""
+type Mutation {
+  SaveMaterial(material: MaterialInput!): Material!
+  DeleteMaterial(material_id: String): Boolean!
+}
+
+"""
+-- =============================== Query =============================== --
+-- ===================================================================== --
+"""
+type Query {
+  GetMaterial(material_id: String!): Material
+
+  ListMaterialPage(
+    page: Int!
+    limit: Int!
+    advanced: SearchMaterialCondition!
+  ): MaterialPageResult!
+
+  ListMaterials(advanced: SearchMaterialCondition!): [Material]
+  ListSubMaterials(material_id: String!): [Material]
+}

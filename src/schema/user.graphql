@@ -1,0 +1,87 @@
+"""
+-- =============================== TYPES =============================== --
+-- ===================================================================== --
+"""
+type Auth {
+  token: String!
+  user: User!
+}
+
+type User {
+  user_id: String!
+  cpny_id: String
+  user_name: String
+  user_phone: String!
+  user_phone1: String
+  user_email: String
+  pass_enc: String
+  pass_num: String
+  email_verified_yn: String
+  phone_verified_yn: String
+  use_yn: String
+  del_yn: String
+}
+
+type SearchPageResult {
+  listUser: [User!]
+  totalPages: Int!
+  totalItems: Int!
+}
+
+type SearchResult {
+  listUser: [User]
+}
+
+"""
+-- =============================== INPUTS =============================== --
+-- ====================================================================== --
+"""
+input SearchCondition {
+  cpny_id: String
+  user_name: String
+  user_phone: String
+  pass_num: String
+  email: String
+  email_verified_yn: String
+  phone_verified_yn: String
+}
+
+input UserInput {
+  user_id: String
+  cpny_id: String
+  user_name: String
+  user_phone: String
+  user_phone1: String
+  user_email: String
+  password: String
+  pass_num: String
+  last_login_date: String
+  email_verified_yn: String
+  email_verified_date: String
+  phone_verified_yn: String
+  phone_verified_date: String
+}
+
+"""
+-- =============================== Mutation =============================== --
+-- ======================================================================== --
+"""
+type Mutation {
+  Register(user: UserInput!): User!
+  SaveUser(user: UserInput!): User!
+  Login(phone: String!, password: String!): Auth!
+}
+
+"""
+-- =============================== Query =============================== --
+-- ===================================================================== --
+"""
+type Query {
+  GetUser(user_id: String!): User
+  ListUsersPage(
+    page: Int!
+    limit: Int!
+    advanced: SearchCondition!
+  ): SearchPageResult!
+  ListUsers(condition: SearchCondition!): SearchResult!
+}
